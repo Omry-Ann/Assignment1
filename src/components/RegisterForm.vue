@@ -1,16 +1,19 @@
 <template>
-  <div class="form" v-cloak >
-    <h1>{{ msg}}</h1>
+  <div class="form" v-cloak>
+    <h1>{{msg}}</h1>
     <!-- horizintal line in the form -->
     <hr size="3" noshade><br>
     <h2>Full Name:</h2>
-    <div v-if="fnameValidation" > <input v-model="fname" class="Valid"></div>
+    <div v-if="emptyFname">*please enter your full name*<br><input v-model="fname"></div>
+    <div v-else-if="fnameValidation" > <input v-model="fname" class="Valid"></div>
     <div v-else>*name is not valid*<br><input v-model="fname" class="NoValid"></div>
     <h2>Mail:</h2>
-    <div v-if="emailValidation" > <input v-model="mail" class="Valid"></div>
+    <div v-if="emptyMail">*please enter your email*<br><input v-model="mail"></div>
+    <div v-else-if="emailValidation" > <input v-model="mail" class="Valid"></div>
     <div v-else>*email is not valid*<br><input v-model="mail" class="NoValid"></div>
     <h2>Phone Number:</h2>
-    <div v-if="phonenumValidation"> <input v-model="phonenum" class="Valid"></div>
+    <div v-if="emptyPhoneNumber">*please enter phone number*<br><input v-model="phonenum"></div>
+    <div v-else-if="phonenumValidation"> <input v-model="phonenum" class="Valid"></div>
     <div v-else>*number is not valid*<br><input v-model="phonenum" class="NoValid"></div>
     <h2>Gender:</h2>
     <div v-if="genderValidation">
@@ -21,7 +24,7 @@
       <option value="Both">Both</option>
     </select></div>
     <div v-else>*gender has to be selected*<br>
-    <select v-model="gender" class="NoValid">
+    <select v-model="gender">
       <option disabled value=""></option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
@@ -88,7 +91,7 @@ export default {
       return this.mail.toUpperCase();
     },
     fnameValidation: function(){
-      if(this.fname.length > 0)
+      if(this.fname.match(/^([a-zA-Z]{1,} )([a-zA-Z]{1,})$/))
         return true;
       else
         return false;
@@ -127,6 +130,15 @@ export default {
         ['gender', this.gender],
         ['image', this.image]
       ];
+    },
+    emptyFname: function(){
+      return this.fname == '';
+    },
+    emptyMail: function(){
+      return this.mail == '';
+    },
+    emptyPhoneNumber: function(){
+      return this.phonenum == '';
     }
   }
 }
