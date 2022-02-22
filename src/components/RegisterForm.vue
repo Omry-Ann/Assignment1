@@ -1,20 +1,25 @@
 <template>
+  <!-- v-clock will hide everything from rendering until the whole app is ready -->
   <div class="form" v-cloak>
     <h1>{{msg}}</h1>
     <!-- horizintal line in the form -->
     <hr size="3" noshade><br>
+
     <h2>Full Name:</h2>
-    <div v-if="emptyFname">*please enter your full name*<br><input v-model="fname"></div>
+    <div v-if="emptyFname">*please enter your full name*<br><br><input v-model="fname"></div>
     <div v-else-if="fnameValidation" > <input v-model="fname" class="Valid"></div>
-    <div v-else>*name is not valid*<br><input v-model="fname" class="NoValid"></div>
+    <div v-else><p>*name is not valid*</p><input v-model="fname" class="NoValid"></div>
+
     <h2>Mail:</h2>
-    <div v-if="emptyMail">*please enter your email*<br><input v-model="mail"></div>
+    <div v-if="emptyMail">*please enter your email*<br><br><input v-model="mail"></div>
     <div v-else-if="emailValidation" > <input v-model="mail" class="Valid"></div>
-    <div v-else>*email is not valid*<br><input v-model="mail" class="NoValid"></div>
+    <div v-else><p>*email is not valid*</p><input v-model="mail" class="NoValid"></div>
+
     <h2>Phone Number:</h2>
-    <div v-if="emptyPhoneNumber">*please enter phone number*<br><input v-model="phonenum"></div>
+    <div v-if="emptyPhoneNumber">*please enter phone number*<br><br><input v-model="phonenum"></div>
     <div v-else-if="phonenumValidation"> <input v-model="phonenum" class="Valid"></div>
-    <div v-else>*number is not valid*<br><input v-model="phonenum" class="NoValid"></div>
+    <div v-else><p>*number is not valid*</p><input v-model="phonenum" class="NoValid"></div>
+    
     <h2>Gender:</h2>
     <div v-if="genderValidation">
     <select v-model="gender" class="Valid">
@@ -23,21 +28,20 @@
       <option value="Female">Female</option>
       <option value="Both">Both</option>
     </select></div>
-    <div v-else>*gender has to be selected*<br>
+    <div v-else>*gender has to be selected*<br><br>
     <select v-model="gender">
       <option disabled value=""></option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
       <option value="Both">Both</option>
     </select></div>
-    <h2>Your Avatar:</h2>
-    <label v-if="imgNoValidation">*please select an Avatar*<br></label>
-    <!-- @TODO : v-for -->
 
+    <h2>Your Avatar:</h2>
+    <label v-if="imgNoValidation">*please select an Avatar*<br><br></label>
     <label v-for="img in imgs" :key="img.src">
       <input type="radio" v-model="image" :value="img.value">
-      <img :src="img.src" alt="avatar" /></label>
-    <br><br>
+      <img :src="img.src" alt="avatar" /></label><br><br>
+
     <button @click.prevent="submit"> Submit</button> <br><br> 
     <hr size="3" noshade>
   
@@ -65,8 +69,8 @@ export default {
     submit: function(){
       if(this.emailValidation && this.phonenumValidation&&
          this.fnameValidation && this.genderValidation&&
-         !this.imgNoValidation
-      ){
+         !this.imgNoValidation)
+      {
         alert('submitted');
         console.log(this.jsonOutput);
         this.cleanForm()
@@ -84,12 +88,8 @@ export default {
     }
   },
   computed: {
-    fnameCaps: function() {
-      return this.fname.toUpperCase();
-    },
-    mailCaps: function(){
-      return this.mail.toUpperCase();
-    },
+    // fnameCaps: function() {
+    //   return this.fname.toUpperCase();
     fnameValidation: function(){
       if(this.fname.match(/^([a-zA-Z]{1,} )([a-zA-Z]{1,})$/))
         return true;
@@ -143,23 +143,29 @@ export default {
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h2 {
   font-style: italic;
 }
+
 h1 {
   font-style: italic;
   text-decoration-line:underline;
   text-decoration-style:dotted;
 }
+
 .Valid {
   border-color:rgb(3, 245, 3);
 }
+
 .NoValid {
   border-color:red;
 }
+p{
+  color: red;
+}
+
 [type=radio] {
   display: none;
 }
@@ -176,8 +182,8 @@ button {
   border:double;
   font-size:larger;
 }
-/* note for myself: it prevents seeing all the rendered things when refresh.
-v-clock will hide everything from rendering until the whole app is ready.  */
+
+/* additional for the v-cloak at the beginning of the form */
 [v-clock]{
   display: none;
 }
