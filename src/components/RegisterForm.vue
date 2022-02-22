@@ -31,20 +31,10 @@
     <label v-if="imgNoValidation">*please select an Avatar*<br></label>
     <!-- @TODO : v-for -->
 
-    <!-- <label v-for="img in imgs" :key="img.src">
+    <label v-for="img in imgs" :key="img.src">
       <input type="radio" v-model="image" :value="img.value">
-      <img :src="img.src" alt="avatar" /></label> -->
-   <!-- <span>{{image}}</span> -->
-
-    <label for="image">
-      <label><input type="radio"  disabled value="" v-model="image"></label>
-      <label><input type="radio" value="dog" v-model="image">
-      <img src="./icons/dog.png" alt="dog"></label>
-      <label><input type="radio" value="fish" v-model="image">
-      <img src="./icons/fish.png" alt="fish"></label>
-      <label><input type="radio"  value="owl" v-model="image">
-      <img src="./icons/owl.png" alt="owl"></label> 
-    </label> <br><br> 
+      <img :src="img.src" alt="avatar" /></label>
+    <br><br>
     <button @click.prevent="submit"> Submit</button> <br><br> 
     <hr size="3" noshade>
   
@@ -62,9 +52,9 @@ export default {
       image: '',
       msg: 'Register Here',
       imgs:[
-        {src: "/icons/owl.png" , value:"dog"},
-        {src: "./icons/dog.png", value:"fish"},
-        {src: "./icons/fish.png", value:"owl"}
+        {src: require("../assets/icons/dog.png") , value:"dog"},
+        {src: require("../assets/icons/fish.png"), value:"fish"},
+        {src: require("../assets/icons/owl.png"), value:"owl"}
       ]
     };
   },
