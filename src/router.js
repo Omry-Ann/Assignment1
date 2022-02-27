@@ -9,7 +9,7 @@ import Quiz from './components/Quiz.vue';
         props:true
     },
     {
-        path: '/quiz',
+        path: '/quiz/:id',
         name:'quiz', 
         component: Quiz, 
         props:true
