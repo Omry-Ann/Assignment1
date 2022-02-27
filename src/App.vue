@@ -1,20 +1,24 @@
 <template>
   <div id="app">
     <title>My Page</title>
-    <!-- <img src="./assets/Ann.png"> -->
-    <RegisterForm/>
+    <!-- <RegisterForm/>
+    <Quiz/> -->
+    <router-view> </router-view>  
+    <!-- <router/> -->
+    <!-- <router-view></router-view> -->
   </div>
 </template>
 
-<script>
-import RegisterForm from './components/RegisterForm.vue'
-
-export default {
-  name: 'App',
-  components: {
-    RegisterForm
-  }
-}
+// <script>
+// import Quiz from './components/Quiz.vue'
+// import RegisterForm from './components/RegisterForm.vue'
+// export default {
+//   name: 'App',
+//   components: {
+//     RegisterForm,
+//     Quiz
+//   }
+// }
 </script>
 
 <style>

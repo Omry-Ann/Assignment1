@@ -4,7 +4,7 @@
     <h1>{{msg}}</h1>
     <!-- horizintal line in the form -->
     <hr size="3" noshade><br>
-
+    
     <h2>Full Name:</h2>
     <div v-if="emptyFname">*please enter your full name*<br><br><input v-model="fname"></div>
     <div v-else-if="fnameValidation" > <input v-model="fname" class="Valid"></div>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+
 export default {
   data: function() {
     return {
@@ -71,9 +72,10 @@ export default {
          this.fnameValidation && this.genderValidation&&
          !this.imgNoValidation)
       {
-        alert('submitted');
-        console.log(this.jsonOutput);
-        this.cleanForm()
+        // alert('submitted');
+        // console.log(this.jsonOutput);
+        this.cleanForm();
+        this.$route.push('./quiz/${this.fname}');
       }
       else{
         alert('oops');
