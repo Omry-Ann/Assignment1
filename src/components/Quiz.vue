@@ -1,20 +1,38 @@
 <template>
   <div class="quiz">
-    <h1>xxx</h1>
-    <h2>{{id}}</h2>
+    <topbar/>
+    <div class="toolbar">
+      {{fname}} <br> <img :src="userAvatar">
+    </div>
   </div>
 </template>
 
 <script>
+import topbar from '../components/Topbar.vue'
 export default {
+  components: {topbar},
   data(){
   return{
-    id:this.$route.params.id
-  }
+    fname:this.$route.params.fname,
+    image: this.$route.params.image,
+  };
+  },
+  computed: {
+    userAvatar: function(){
+      if(this.image =='dog')
+        return require("../assets/icons/dog.png");
+      else if(this.image =='fish')
+        return require("../assets/icons/fish.png");
+      else
+        return require("../assets/icons/owl.png");
+    }
   }
 }
 </script>
 
 <style>
-
+  img {
+    width: 80px;
+    height: 80px;
+  }
 </style>

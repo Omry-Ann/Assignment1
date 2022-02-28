@@ -75,7 +75,7 @@ export default {
         // alert('submitted');
         // console.log(this.jsonOutput);
         // this.cleanForm();
-        this.$router.push(`./quiz/${this.fname}`);
+        this.$router.push(`./quiz/${this.fname}/${this.image}`);
       }
       else{
         alert('oops');
