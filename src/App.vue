@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <title>My Page</title>
-    <!-- <img src="./assets/Ann.png"> -->
     <RegisterForm/>
   </div>
 </template>

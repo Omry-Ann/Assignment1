@@ -1,34 +1,25 @@
 <template>
-  <!-- v-clock will hide everything from rendering until the whole app is ready -->
-  <div class="form" v-cloak>
+
+  <div>
     <h1>{{msg}}</h1>
-    <!-- horizintal line in the form -->
     <hr size="3" noshade><br>
 
-    <h2>Full Name:</h2>
-    <div v-if="emptyFname">*please enter your full name*<br><br><input v-model="fname"></div>
-    <div v-else-if="fnameValidation" > <input v-model="fname" class="Valid"></div>
-    <div v-else><p>*name is not valid*</p><input v-model="fname" class="NoValid"></div>
-
-    <h2>Mail:</h2>
-    <div v-if="emptyMail">*please enter your email*<br><br><input v-model="mail"></div>
-    <div v-else-if="emailValidation" > <input v-model="mail" class="Valid"></div>
-    <div v-else><p>*email is not valid*</p><input v-model="mail" class="NoValid"></div>
-
-    <h2>Phone Number:</h2>
-    <div v-if="emptyPhoneNumber">*please enter phone number*<br><br><input v-model="phonenum"></div>
-    <div v-else-if="phonenumValidation"> <input v-model="phonenum" class="Valid"></div>
-    <div v-else><p>*number is not valid*</p><input v-model="phonenum" class="NoValid"></div>
-    
+    <label v-for="dataInput in dataInputs" :key="dataInput.name">
+      <h2>{{dataInput.name}}</h2>
+      <div v-if="dataInput.value===''">please enter your {{dataInput.name}} <br><br><input v-model="dataInput.value"></div>
+      <div v-else-if="validity(dataInput.name, dataInput.value)"> <input v-model="dataInput.value" class="Valid"></div>
+      <div v-else><p>{{dataInput.name}} is not valid</p> <input v-model="dataInput.value" class="Novalid"></div>
+    </label>
+   
     <h2>Gender:</h2>
-    <div v-if="genderValidation">
+    <div v-if="gender!= ''">
     <select v-model="gender" class="Valid">
       <option disabled value=""></option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
       <option value="Both">Both</option>
     </select></div>
-    <div v-else>*gender has to be selected*<br><br>
+    <div v-else>gender has to be selected<br><br>
     <select v-model="gender">
       <option disabled value=""></option>
       <option value="Male">Male</option>
@@ -37,7 +28,7 @@
     </select></div>
 
     <h2>Your Avatar:</h2>
-    <label v-if="imgNoValidation">*please select an Avatar*<br><br></label>
+    <label v-if="image ===''">please select an Avatar<br><br></label>
     <label v-for="img in imgs" :key="img.src">
       <input type="radio" v-model="image" :value="img.value">
       <img :src="img.src" alt="avatar" /></label><br><br>
@@ -52,9 +43,11 @@
 export default {
   data: function() {
     return {
-      fname: '',
-      mail: '',
-      phonenum: '',
+      dataInputs:[
+        {name:"Full Name",value:''},
+        {name:"Mail",value:''},
+        {name:"Phone Number",value:''}
+      ],
       gender: '',
       image: '',
       msg: 'Register Here',
@@ -66,84 +59,51 @@ export default {
     };
   },
   methods: {
+    validity: function(name,value){
+      if(name === 'Full Name')
+        return value.match(/^([a-zA-Z]{1,} )([a-zA-Z]{1,})$/)? true :false;
+      else if(name === 'Mail')
+        return value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)?  true : false;
+      else
+        return value.match(/^\d{10}$/)? true : false;
+    },
     submit: function(){
-      if(this.emailValidation && this.phonenumValidation&&
-         this.fnameValidation && this.genderValidation&&
-         !this.imgNoValidation)
+      let allvalid = this.dataInputs.reduce(
+        (acc,curr)=> acc && this.validity(curr.name, curr.value), true
+      ) && this.gender != '' && this.image != '';
+      if(allvalid)
       {
         alert('submitted');
         console.log(this.jsonOutput);
         this.cleanForm()
       }
       else{
-        alert('oops');
+        alert('please fill again');
       }
     },
     cleanForm: function(){
-      this.fname = '';
-      this.mail = '';
-      this.phonenum = '';
+      this.dataInputs[0].value = '';
+      this.dataInputs[1].value = '';
+      this.dataInputs[2].value = '';
       this.gender = '';
       this.image = '';
     }
   },
   computed: {
-    // fnameCaps: function() {
-    //   return this.fname.toUpperCase();
-    fnameValidation: function(){
-      if(this.fname.match(/^([a-zA-Z]{1,} )([a-zA-Z]{1,})$/))
-        return true;
-      else
-        return false;
-    },
-    emailValidation: function () {
-      if (this.mail.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
-        return true;
-      }
-      else{
-       return false;
-      }
-    },
-    phonenumValidation: function(){
-      if (this.phonenum.match(/^\d{10}$/)) {
-        return true;
-      }
-      return false;
-    },
-    genderValidation: function(){
-      if(this.gender != '')
-        return true;
-      else
-        return false;
-    },
-    imgNoValidation: function(){
-      if(this.image == '')
-        return true;
-      else
-        return false;
-    },
+    
     jsonOutput: function(){
       return [
-        ['fname', this.fname],
-        ['mail', this.mail],
-        ['phonenum', this.phonenum],
+        ['fname', this.dataInputs[0].value],
+        ['mail', this.dataInputs[1].value],
+        ['phonenum', this.dataInputs[2].value],
         ['gender', this.gender],
         ['image', this.image]
       ];
-    },
-    emptyFname: function(){
-      return this.fname == '';
-    },
-    emptyMail: function(){
-      return this.mail == '';
-    },
-    emptyPhoneNumber: function(){
-      return this.phonenum == '';
     }
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 h2 {
   font-style: italic;
@@ -183,8 +143,4 @@ button {
   font-size:larger;
 }
 
-/* additional for the v-cloak at the beginning of the form */
-[v-clock]{
-  display: none;
-}
 </style>
