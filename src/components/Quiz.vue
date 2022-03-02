@@ -1,9 +1,9 @@
 <template>
   <div class="quiz">
-    <topbar/>
-    <div class="toolbar">
-      {{fname}} <br> <img :src="userAvatar">
-    </div>
+    <topbar :fname="fname" :image="image" :currScore="currScore" :highScore="highScore" />
+    
+    <br><br><br><br>
+    
   </div>
 </template>
 
@@ -13,6 +13,8 @@ export default {
   components: {topbar},
   data(){
   return{
+    currScore:0,
+    highScore:0,
     fname:this.$route.params.fname,
     image: this.$route.params.image,
   };
@@ -31,8 +33,5 @@ export default {
 </script>
 
 <style>
-  img {
-    width: 80px;
-    height: 80px;
-  }
+
 </style>
