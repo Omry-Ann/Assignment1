@@ -4,7 +4,8 @@
             <h3>Question Number: <br><br>{{currentQuestionIndex +1}}</h3>
             <br>
             {{currentQuestion}}
-            <input type="text">
+            <input type="text" v-model="ans"><br><br>
+            <button @click="$emit('answer', ans == questions[currentQuestionIndex].ans, currentQuestionIndex); next()">SUBMIT</button>
         </div>
         <br><br>
         <button @click="prev()">PREV</button>
@@ -18,9 +19,18 @@ export default {
         return{
             questions: [
                 {question: '1+2 =' , ans:'3'},
+                {question: '8-4 =' , ans:'4'},
+                {question: '9+8 =' , ans:'17'},
+                {question: '6+6 =' , ans:'12'},
+                {question: '16-9 =' , ans:'7'},
+                {question: '10+15 =' , ans:'25'},
+                {question: '8+0 =' , ans:'8'},
                 {question: '5+5 =' , ans:'10'}
                 ],
-            currentQuestionIndex: 0
+            currentQuestionIndex: 0,
+            currScore:0,
+            ans:'',
+            gameOver: false
         };
     },
     computed: {
@@ -34,8 +44,8 @@ export default {
                 this.currentQuestionIndex--;
         },
         next() {
-            if (this.currentQuestionIndex < this.questions.length-1) 
-                this.currentQuestionIndex++;
+            this.ans == this.questions[this.currentQuestionIndex].ans? this.currScore++ : 1;
+            this.currentQuestionIndex < this.questions.length-1? this.currentQuestionIndex++ : this.gameOver = true;
         }
     }
 }

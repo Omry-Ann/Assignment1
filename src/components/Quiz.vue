@@ -2,8 +2,11 @@
   <div class="quiz">
     <topbar :fname="fname" :image="image" :currScore="currScore" :highScore="highScore" />
     <br><br>
-    <game/>
-    <bottombar/>
+    <game @answer="addAnswer"/>
+    <br><br>
+    <bottombar :icons="icons"/>
+    hhh
+    {{ok}}
   </div>
 </template>
 
@@ -19,6 +22,17 @@ export default {
     highScore:0,
     fname:this.$route.params.fname,
     image: this.$route.params.image,
+    ok:0,
+    icons:[
+        {val:''},
+        {val:''},
+        {val:''},
+        {val:''},
+        {val:''},
+        {val:''},
+        {val:''},
+        {val:''},
+    ]   
   };
   },
   computed: {
@@ -33,7 +47,11 @@ export default {
   
   },
   methods: {
-
+    addAnswer: function(isEqual, index){
+      this.icons[index].val = isEqual? '1':'0';
+      this.ok = index;
+    }
+    
   }
 }
 </script>
