@@ -2,15 +2,15 @@
   <div class="quiz">
     <topbar :fname="fname" :image="image" :currScore="currScore" :highScore="highScore" />
     <br><br>
-    <game @answer="addAnswer"/>
+    <game :currScore="currScore" @answer="addAnswer"/>
     <br><br>
     <bottombar :icons="icons"/>
-    hhh
-    {{ok}}
+    <br>
   </div>
 </template>
 
 <script>
+
 import topbar from '../components/Topbar.vue'
 import bottombar from '../components/Bottombar.vue'
 import game from '../components/Game.vue'
@@ -22,7 +22,6 @@ export default {
     highScore:0,
     fname:this.$route.params.fname,
     image: this.$route.params.image,
-    ok:0,
     icons:[
         {val:''},
         {val:''},
@@ -49,7 +48,7 @@ export default {
   methods: {
     addAnswer: function(isEqual, index){
       this.icons[index].val = isEqual? '1':'0';
-      this.ok = index;
+      this.currScore+= isEqual? 1:0;
     }
     
   }
