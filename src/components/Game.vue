@@ -3,9 +3,10 @@
         <br><br>
         <div v-if="countDown ==0">
             <div class="nogame">
-                <h1>Game Over</h1>
-                Your Score: {{currScore}}
-                <!-- <button @click="(function(){started =1 })(); countDownTimer()">Start Game</button> -->
+                <h1>Game Over <span v-if="currScore>highScore">+ New HighScore!</span></h1>
+                <h1>Your Score: {{currScore}}</h1> <br>
+                <button @click="$emit('update', highScore, currScore);
+                (function(){countDown = 10; currentQuestionIndex = 0;})(); countDownTimer()">Play Again</button>
             </div>
         </div>
         <div v-else-if="started == 0"> 
@@ -19,8 +20,10 @@
             <h3>Question Number: <br><br>{{currentQuestionIndex +1}}</h3>
             <h1>{{currentQuestion}}</h1> 
             <input type="text" v-model="ans"><br><br>
-            <button @click="$emit('answer', ans == questions[currentQuestionIndex].ans,
-             currentQuestionIndex);(function(){ans = ''})(); next()">SUBMIT</button> </div>
+            <div v-if="ans==''"> <button style="background:transparent;" >SUBMIT</button></div>
+            <div v-else><button @click="$emit('answer', ans == questions[currentQuestionIndex].ans,
+             currentQuestionIndex);(function(){ans = ''})(); next()">SUBMIT</button></div> 
+             </div>
         </div>
         <br><br>
         <!-- <button @click="prev()">PREV</button>
@@ -31,9 +34,13 @@
 <script>
 export default {
     props:{
+        highScore:{
+            Type: Number
+        },
         currScore:{
             Type: Number
         }
+        
     },
     data(){
         return{
@@ -96,6 +103,5 @@ export default {
         border:double;
         font-size:larger;
         color: purple;
-        background: transparent;
     }
 </style>

@@ -2,7 +2,7 @@
   <div class="quiz">
     <topbar :fname="fname" :image="image" :currScore="currScore" :highScore="highScore" />
     <br><br>
-    <game :currScore="currScore" @answer="addAnswer"/>
+    <game :currScore="currScore" :highScore="highScore" @answer="addAnswer" @update="updateScores"/>
     <br><br>
     <bottombar :icons="icons"/>
     <br>
@@ -49,6 +49,11 @@ export default {
     addAnswer: function(isEqual, index){
       this.icons[index].val = isEqual? '1':'0';
       this.currScore+= isEqual? 1:0;
+    },
+    updateScores: function(high, curr){
+      this.highScore = curr>high? curr : high;
+      this.currScore = 0;
+      this.icons.map((x)=>x.val='');
     }
     
   }
