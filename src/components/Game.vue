@@ -1,20 +1,20 @@
 <template>
     <div >
         <br><br>
-        <div v-if="countDown ==0">
+        <div v-if="countDown == 0 || gameOver">
             <div class="nogame">
                 <h1>Game Over <span v-if="currScore>highScore">+ New HighScore!</span></h1>
                 <h1>Your Score: {{currScore}}</h1> <br>
                 <button @click="$emit('update', highScore, currScore);
-                (function(){countDown = 10; currentQuestionIndex = 0;})(); countDownTimer()">Play Again</button>
+                (function(){countDown = 59; currentQuestionIndex = 0; gameOver = false;})(); countDownTimer()">Play Again</button>
             </div>
         </div>
-        <div v-else-if="started == 0"> 
+        <div v-else-if="!started"> 
             <div class="nogame">
-                <button @click="(function(){started =1 })(); countDownTimer()">Start Game</button>
+                <button @click="(function(){started = true })(); countDownTimer()">Start Game</button>
             </div>
         </div>
-        <div v-else-if="started == 1">
+        <div v-else-if="started">
             <div class="game" >
             Time: {{countDown}} <br> 
             <h3>Question Number: <br><br>{{currentQuestionIndex +1}}</h3>
@@ -26,8 +26,6 @@
              </div>
         </div>
         <br><br>
-        <!-- <button @click="prev()">PREV</button>
-        <button @click="next()">NEXT</button> -->
     </div>
 </template>
 
@@ -57,8 +55,8 @@ export default {
             currentQuestionIndex: 0,
             ans:'',
             gameOver: false,
-            countDown:10,
-            started:0
+            countDown:59,
+            started:false
         };
     },
     computed: {
@@ -76,10 +74,6 @@ export default {
                     }, 1000
                 )
             }
-        },
-        prev() {
-            if (this.currentQuestionIndex > 0) 
-                this.currentQuestionIndex--;
         },
         next() {
             this.ans == this.questions[this.currentQuestionIndex].ans? this.currScore++ : 1;

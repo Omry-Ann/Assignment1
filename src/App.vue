@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <title>My Page</title>
-    <!-- <RegisterForm/>
-    <Quiz/> -->
+    
     <router-view> </router-view>  
-    <!-- <router/> -->
-    <!-- <router-view></router-view> -->
+    
   </div>
 </template>
 
