@@ -30,14 +30,14 @@ export default {
     fname:this.$route.params.fname,
     image: this.$route.params.image,
     icons:[
-        {val:''},
-        {val:''},
-        {val:''},
-        {val:''},
-        {val:''},
-        {val:''},
-        {val:''},
-        {val:''},
+        {val : '',time : 0},
+        {val : '',time : 0},
+        {val : '',time : 0},
+        {val : '',time : 0},
+        {val : '',time : 0},
+        {val : '',time : 0},
+        {val : '',time : 0},
+        {val : '',time : 0}
     ]   
   };
   },
@@ -53,14 +53,16 @@ export default {
   
   },
   methods: {
-    addAnswer: function(isEqual, index){
+    addAnswer: function(isEqual, index, time){
       this.icons[index].val = isEqual? '1':'0';
+      let sums = this.icons.reduce((acc,curr)=> acc + curr.time, 0) + time;
+      this.icons[index].time = 59 - sums;
       this.currScore+= isEqual? 1:0;
     },
     updateScores: function(high, curr){
       this.highScore = curr>high? curr : high;
       this.currScore = 0;
-      this.icons.map((x)=>x.val='');
+      this.icons.map((x)=>{x.val = '' ; x.time = 0});
     }
   }
 }

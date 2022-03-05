@@ -7,7 +7,7 @@
   </div>
 </template>
 
-// <script>
+<script>
 // import Quiz from './components/Quiz.vue'
 // import RegisterForm from './components/RegisterForm.vue'
 // export default {

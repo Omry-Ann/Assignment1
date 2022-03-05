@@ -1,7 +1,7 @@
 <template>
     <div >
         <br><br>
-        <div v-if="countDown == 0 || gameOver">
+        <div v-if="countDown <= 0 || gameOver">
             <div class="nogame">
                 <h1>Game Over <span v-if="currScore>highScore">+ New HighScore!</span></h1>
                 <h1>Your Score: {{currScore}}</h1> <br>
@@ -22,7 +22,7 @@
             <input type="text" v-model="ans"><br><br>
             <div v-if="ans==''"> <button style="background:transparent;" >SUBMIT</button></div>
             <div v-else><button @click="$emit('answer', ans == questions[currentQuestionIndex].ans,
-             currentQuestionIndex);(function(){ans = ''})(); next()">SUBMIT</button></div> 
+             currentQuestionIndex, countDown);(function(){ans = ''})(); next()">SUBMIT</button></div> 
              </div>
         </div>
         <br><br>
