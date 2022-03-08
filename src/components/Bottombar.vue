@@ -17,15 +17,8 @@ export default {
         icons: {
             type: Array
         }
-    },
-    data(){
-        return {
-            
-        };
-    },
-    computed: {
-        
     }
+
 }
 </script>
 

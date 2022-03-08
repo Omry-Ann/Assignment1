@@ -26,16 +26,7 @@ export default {
           type:Number
       }
   },
-//   created(){
-//       debugger; // eslint-disable-line no-debugger
 
-//   },
-  
-  data() {
-      return{
-          
-      };
-  },
   computed: {
     userAvatar: function(){
       if(this.image =='dog')
@@ -53,7 +44,6 @@ export default {
 
 .left {
     float: left;
-    
 }
 .right {
     float: right;

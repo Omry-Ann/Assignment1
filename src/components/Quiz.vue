@@ -24,6 +24,7 @@ export default {
   components: {topbar, bottombar, game, popup},
   data(){
   return{
+    numOfQuestions:8,
     isPoped: true,
     currScore:0,
     highScore:0,

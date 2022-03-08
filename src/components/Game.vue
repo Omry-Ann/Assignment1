@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 export default {
     props:{
         highScore:{
@@ -76,13 +77,13 @@ export default {
             }
         },
         next() {
-            this.ans == this.questions[this.currentQuestionIndex].ans? this.currScore++ : 1;
+            // this.ans == this.questions[this.currentQuestionIndex].ans? this.currScore++ : 1;
             this.currentQuestionIndex < this.questions.length-1? this.currentQuestionIndex++ : this.gameOver = true;
         }
     },
-//       mounted(){
-//         this.countDownTimer();
-//   }
+      created(){
+        this.questions = _.shuffle(this.questions);
+  }
 }
 </script>
 
