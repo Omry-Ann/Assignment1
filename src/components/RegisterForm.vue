@@ -81,11 +81,9 @@ export default {
       else{
         alert('Some of the fields are invalid or incompleted');
       }
-    },
- 
-  },
-  computed: {
+    }
   }
+
 }
 </script>
 
