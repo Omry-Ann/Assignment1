@@ -6,28 +6,27 @@
 
     <label v-for="dataInput in dataInputs.slice(0,3)" :key="dataInput.name">
       <h2>{{dataInput.name}}</h2>
-      <div v-if="dataInput.value===''">please enter your {{dataInput.name}} <br><br><input v-model="dataInput.value"></div>
-      <div v-else-if="validity(dataInput.name, dataInput.value)"> <input v-model="dataInput.value" class="valid"></div>
-      <div v-else><p>{{dataInput.name}} is not valid</p> <input v-model="dataInput.value" class="no-valid"></div>
+      <div v-if="dataInput.value===''">Enter {{dataInput.name}} <br><br></div>
+      <div v-else-if="validity(dataInput.name, dataInput.value)"> 
+        {{dataInput.name}} Valid :)<br><br> </div>
+      <div v-else> <p>{{dataInput.name}} Invalid :(</p></div>
+      <div><input v-model="dataInput.value" 
+      :class="getClass(dataInput.name, dataInput.value)" ></div>   
     </label>
    
     <h2>Gender:</h2>
-    <div v-if="dataInputs[3].value!= ''">
-    <select v-model="dataInputs[3].value" class="valid">
-      <option value="M">Male</option>
-      <option value="F">Female</option>
-      <option value="B">Both</option>
-    </select></div>
-    <div v-else>gender has to be selected<br><br>
-    <select v-model="dataInputs[3].value">
+    <div v-if="dataInputs[3].value == ''">Select Gender</div>
+    <div v-else>Valid</div><br>
+    <div><select v-model="dataInputs[3].value" 
+    :class="getClass(dataInputs[3].name, dataInputs[3].value)">
       <option value="M">Male</option>
       <option value="F">Female</option>
       <option value="B">Both</option>
     </select></div>
 
     <h2>Your Avatar:</h2>
-    <label v-if="dataInputs[4].value ===''">please select an Avatar<br><br></label>
-    <label v-for="img in imgs" :key="img.src">
+    <label v-if="dataInputs[4].value ===''">please select an Avatar</label>
+    <br><br><label v-for="img in imgs" :key="img.src">
       <input type="radio" v-model="dataInputs[4].value" :value="img.value">
       <img :src="img.src" :alt="img.value" /></label><br><br>
 
@@ -56,6 +55,9 @@ export default {
     };
   },
   methods: {
+    getClass: function(name,value){
+      return value==''? '': this.validity(name,value)? 'valid':'no-valid';
+    },
     validity: function(name,value){
       if(name === 'Full Name')
         return value.match(/^([a-zA-Z]{1,}\s)([a-zA-Z]{1,})$/)? true :false;
@@ -73,21 +75,16 @@ export default {
       {
         alert('submitted');
         this.dataInputs.forEach(input=>
-        console.log(input.name+":"+input.value));
+        console.log(input.name+": "+input.value));
         this.dataInputs.forEach(input => {input.value=''});
       }
       else{
         alert('Some of the fields are invalid or incompleted');
       }
     },
-    // cleanForm: function(){
-    //   this.dataInputs.forEach(element => {
-    //     element.value=''
-    //   });
-    // }
+ 
   },
   computed: {
-   
   }
 }
 </script>
