@@ -10,7 +10,7 @@ import Login from './components/Login.vue';
         props:true
     },
     {
-        path: '/quiz/:fname/:image',
+        path: '/login/quiz/:fname/:image',
         name:'quiz', 
         component: Quiz, 
         props:true

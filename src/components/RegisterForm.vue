@@ -15,7 +15,7 @@
     <div v-else-if="emailValidation" > <input v-model="mail" class="Valid"></div>
     <div v-else><p>*email is not valid*</p><input v-model="mail" class="NoValid"></div>
 
-    <h2>Phone Number:</h2>
+    <h2>Password:</h2>
     <div v-if="emptyPhoneNumber">*please enter phone number*<br><br><input v-model="phonenum"></div>
     <div v-else-if="phonenumValidation"> <input v-model="phonenum" class="Valid"></div>
     <div v-else><p>*number is not valid*</p><input v-model="phonenum" class="NoValid"></div>
@@ -50,6 +50,8 @@
 
 <script>
 
+import firebaseApp from "../main";
+import "firebase/auth";
 export default {
   data: function() {
     return {
@@ -75,8 +77,9 @@ export default {
         // alert('submitted');
         // console.log(this.jsonOutput);
         // this.cleanForm();
-        this.$router.push('/login/');
-        // this.$router.push(`./login/${this.fname}/${this.image}`);
+        firebaseApp.auth().createUserWithEmailAndPassword(this.mail, this.phonenum).then(()=>firebaseApp.auth().signOut());
+        // this.$router.push('/login/');
+        this.$router.push(`./quiz/${this.fname}/${this.image}`);
       }
       else{
         alert('oops');
