@@ -1,6 +1,6 @@
 <template>
     <div class="topbar">
-        <button @click = "signOut" class="left"> Sign Out</button><br>
+        <button @click = "signOut" class="left"> Sign Out</button>
         <span class="left">Current Score: {{currScore}}</span>
         <span class="right">User: {{fname}}</span>
         <br>
