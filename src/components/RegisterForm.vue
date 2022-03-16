@@ -79,7 +79,7 @@ export default {
         // this.cleanForm();
         firebaseApp.auth().createUserWithEmailAndPassword(this.mail, this.phonenum).then(()=>firebaseApp.auth().signOut());
         // this.$router.push('/login/');
-        this.$router.push(`./quiz/${this.fname}/${this.image}`);
+        this.$router.push(`./login/`);
       }
       else{
         alert('oops');

@@ -1,5 +1,6 @@
 <template>
     <div class="topbar">
+        <button @click = "signOut" class="left"> Sign Out</button><br>
         <span class="left">Current Score: {{currScore}}</span>
         <span class="right">User: {{fname}}</span>
         <br>
@@ -11,6 +12,8 @@
 </template>
 
 <script>
+import firebaseApp from "../main";
+import "firebase/auth";
 export default {
   props:{
       fname:{
@@ -35,6 +38,18 @@ export default {
         return require("../assets/icons/fish.png");
       else
         return require("../assets/icons/owl.png");
+    }
+  },
+  methods: {
+    async signOut(){
+      try{
+      const data = await firebaseApp.auth().signOut();
+      console.log(data);
+      this.$router.replace({name: "login"})
+      }
+      catch(err){
+        console.log(err);
+      }
     }
   } 
 }
