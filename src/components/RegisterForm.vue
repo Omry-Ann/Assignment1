@@ -50,7 +50,7 @@
 
 <script>
 
-import firebaseApp from "../main";
+import firebase from "firebase";
 import "firebase/auth";
 export default {
   data: function() {
@@ -77,9 +77,10 @@ export default {
         // alert('submitted');
         // console.log(this.jsonOutput);
         // this.cleanForm();
-        firebaseApp.auth().createUserWithEmailAndPassword(this.mail, this.phonenum).then(()=>firebaseApp.auth().signOut());
+        firebase.auth().createUserWithEmailAndPassword(this.mail, this.phonenum).then(()=>firebase.auth().signOut());
         // this.$router.push('/login/');
-        this.$router.push(`./login/`);
+        // this.$router.push(`./login/`);
+        this.$router.replace({name: "login"});
       }
       else{
         alert('oops');

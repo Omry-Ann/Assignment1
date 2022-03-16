@@ -22,8 +22,8 @@ const firebaseConfig = {
 };
 
 // // Initialize Firebase
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-export default firebaseApp;
+firebase.initializeApp(firebaseConfig);
+// export default firebase;
 const router = new VueRouter({ routes: Routes});
 
 new Vue({

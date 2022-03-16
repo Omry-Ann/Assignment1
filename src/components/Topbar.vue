@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import firebaseApp from "../main";
+// import firebaseApp from "../main";
+import firebase from 'firebase';
 import "firebase/auth";
 export default {
   props:{
@@ -43,7 +44,7 @@ export default {
   methods: {
     async signOut(){
       try{
-      const data = await firebaseApp.auth().signOut();
+      const data = await firebase.auth().signOut();
       console.log(data);
       this.$router.replace({name: "login"})
       }
